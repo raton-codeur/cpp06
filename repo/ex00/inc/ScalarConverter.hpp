@@ -11,7 +11,7 @@ class ScalarConverter
 {
 	private :
 		static char		_char;
-		static int		_int;
+		static long		_int;
 		static float	_float;
 		static double	_double;
 
