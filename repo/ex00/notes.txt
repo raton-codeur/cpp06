@@ -3,13 +3,123 @@
 vérifier que les char sont affichables avec isprint
 
 
-composition d'un int
-- peut etre : 1 signe + ou -
-- peut etre plusieurs 0
 
-composition d'un float
-- un point
-- lettre f
 
-composition d'un double
-- un point
+
+
+
+1 number
+	[1 / more] digits
+
+1 sign_number
+	[0 / 1] [+ / -]
+	1 number
+
+1 double
+	1 sign_number
+	.
+	1 number
+
+1 float
+	1 double
+	1 f
+
+
+
+
+
+
+
+
+
+bool is_int (char* s)
+	if s est vide
+		return false
+	if s[0] == + ou -
+		i = 1
+	else
+		i = 0
+	si s[i] n'est pas un chiffre
+		return false
+	i++
+	while s[i]
+		if s[i] pas un chiffre
+			return false
+		i++
+	return true
+
+bool is_float(char* s)
+	if s est vide
+		return false
+	if s[0] == + ou -
+		i = 1
+	else
+		i = 0
+	si s[i] n'est pas un chiffre
+		return false
+	i++
+	while s[i] et s[i] != .
+		if s[i] pas un chiffre
+			return false
+		i++
+	si s[i] != . 
+		return false
+	i++
+	si s[i] n'est pas un chiffre
+		return false
+	i++
+	while s[i] et s[i] != 'f'
+		if s[i] pas un chiffre
+			return false
+		i++
+	if s[i] != 'f'
+		return false
+	i++
+	if s[i] est \0
+		return true
+	else
+		return false
+
+bool is_double (char* s)
+	if s est vide
+		return false
+	if s[0] == + ou -
+		i = 1
+	else
+		i = 0
+	si s[i] n'est pas un chiffre
+		return false
+	i++
+	while s[i] et s[i] != .
+		if s[i] pas un chiffre
+			return false
+		i++
+	si s[i] != . 
+		return false
+	i++
+	si s[i] n'est pas un chiffre
+		return false
+	i++
+	while s[i]
+		if s[i] pas un chiffre
+			return false
+	return true
+
+
+
+
+
+s trimée
+trouver le type de s
+	si c'est un des inf / nan
+		c'est un des inf / nan
+	si len s == 1 et s est un char
+		c'est un char
+	si s est un float
+		c'est un float
+	si s est un double
+		c'est un double
+	si s est un int
+		c'est un int
+	sinon
+		erreur
