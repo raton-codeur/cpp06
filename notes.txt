@@ -194,3 +194,9 @@ activer / désactiver l'avertissement de shadowing
 
 c'est quand une variable locale masque une variable de la même portée ou d'une portée plus large
 -
+
+
+
+check qu'un char est affiachable 
+#include <cctype>
+std::isprint()

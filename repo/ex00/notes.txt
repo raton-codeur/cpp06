@@ -1,0 +1,15 @@
+
+
+vérifier que les char sont affichables avec isprint
+
+
+composition d'un int
+- peut etre : 1 signe + ou -
+- peut etre plusieurs 0
+
+composition d'un float
+- un point
+- lettre f
+
+composition d'un double
+- un point
