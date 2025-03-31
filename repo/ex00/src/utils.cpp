@@ -15,7 +15,7 @@ std::string trim(const std::string& s)
 	return s.substr(start, end - start);
 }
 
-bool is_int(const char* s)
+bool is_int_string(const char* s)
 {
 	int i;
 
@@ -37,7 +37,7 @@ bool is_int(const char* s)
 	return true;
 }
 
-bool is_double(const char* s)
+bool is_double_string(const char* s)
 {
 	int i;
 
@@ -71,7 +71,7 @@ bool is_double(const char* s)
 	return true;
 }
 
-bool is_float(const char* s)
+bool is_float_string(const char* s)
 {
 	int i;
 

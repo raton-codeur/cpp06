@@ -200,3 +200,23 @@ c'est quand une variable locale masque une variable de la même portée ou d'une
 check qu'un char est affiachable 
 #include <cctype>
 std::isprint()
+
+
+
+
+-
+checker les overflow et underflow avec strtol, strtod, strtof
+
+mettre errno à 0 avec la convertion
+errno = ERANGE en cas d'over/under flow
+
+pour les int
+récupérer dans un long
+soit le result vaut le long max / min
+soit le result est < ou > à int min / int max
+
+pour les double et les float
+si le result = 0 c'est un underflow, on est trop proche de 0
+si le result = HUGE_VAL(F) ou -HUGE_VAL(F), c'est un overflow, ie +inf ou -inf
+ya d'autre cas rares ou on a juste erange et un result bizarre
+-
