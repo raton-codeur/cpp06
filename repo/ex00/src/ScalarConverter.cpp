@@ -29,7 +29,7 @@ std::string trim(const std::string& s)
 	while (i > start && std::isspace(s[i]))
 		i--;
 	end = i + 1;
-	return s.substr(start, end);
+	return s.substr(start, end - start);
 }
 
 void ScalarConverter::convert(const std::string& literal)
