@@ -1,7 +1,7 @@
 #include "ScalarConverter.hpp"
 
 char ScalarConverter::_char = 0;
-int ScalarConverter::_int = 0;
+long ScalarConverter::_int = 0;
 float ScalarConverter::_float = 0;
 double ScalarConverter::_double = 0;
 
