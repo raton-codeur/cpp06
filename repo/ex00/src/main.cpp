@@ -1,18 +1,9 @@
 #include "ScalarConverter.hpp"
 
-// int main()
-// {
-// 	std::string s;
-// 	while (s != "q")
-// 	{
-// 		std::cout << "literal : ";
-// 		std::getline(std::cin, s);
-// 		ScalarConverter::convert(s);
-// 	}
-// 	return 0;
-// }
-
-int main()
+int main(int argc, char** argv)
 {
-	std::cout << 5 << std::endl;
+	std::string s;
+	if (argc == 2)
+		ScalarConverter::convert(argv[1]);
+	return 0;
 }

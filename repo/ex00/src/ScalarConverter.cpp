@@ -32,7 +32,104 @@ std::string trim(const std::string& s)
 	return s.substr(start, end - start);
 }
 
+bool is_int(const char* s)
+{
+	int i;
+
+	if (s[0] == '\0')
+		return false;
+	if (s[0] == '-' || s[0] == '+')
+		i = 1;
+	else
+		i = 0;
+	if (std::isdigit(s[i]) == false)
+		return false;
+	i++;
+	while (s[i])
+	{
+		if (std::isdigit(s[i]) == false)
+			return false;
+		i++;
+	}
+	return true;
+}
+
+bool is_double(const char* s)
+{
+	int i;
+
+	if (s[0] == '\0')
+		return false;
+	if (s[0] == '-' || s[0] == '+')
+		i = 1;
+	else
+		i = 0;
+	if (std::isdigit(s[i]) == false)
+		return false;
+	i++;
+	while (s[i] && s[i] != '.')
+	{
+		if (std::isdigit(s[i]) == false)
+			return false;
+		i++;
+	}
+	if (s[i] != '.')
+		return false;
+	i++;
+	if (std::isdigit(s[i]) == false)
+		return false;
+	i++;
+	while (s[i])
+	{
+		if (std::isdigit(s[i]) == false)
+			return false;
+		i++;
+	}
+	return true;
+}
+
+bool is_float(const char* s)
+{
+	int i;
+
+	if (s[0] == '\0')
+		return false;
+	if (s[0] == '-' || s[0] == '+')
+		i = 1;
+	else
+		i = 0;
+	if (std::isdigit(s[i]) == false)
+		return false;
+	i++;
+	while (s[i] && s[i] != '.')
+	{
+		if (std::isdigit(s[i]) == false)
+			return false;
+		i++;
+	}
+	if (s[i] != '.')
+		return false;
+	i++;
+	if (std::isdigit(s[i]) == false)
+		return false;
+	i++;
+	while (s[i] && s[i] != 'f')
+	{
+		if (std::isdigit(s[i]) == false)
+			return false;
+		i++;
+	}
+	if (s[i] != 'f')
+		return false;
+	i++;
+	return s[i] == '\0';
+}
+
 void ScalarConverter::convert(const std::string& literal)
 {
-	std::cout << "'" << trim(literal)<< "'" << std::endl;
+	std::string trimmed_literal = trim(literal);
+	const char* literal_to_check = trimmed_literal.c_str();
+	
+
+	std::cout << is_float(s2) << std::endl;
 }
