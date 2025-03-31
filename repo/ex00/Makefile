@@ -1,10 +1,9 @@
-NAME = a.out
+NAME = a
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc
 SRCS = $(addprefix src/, \
 	main.cpp \
 	ScalarConverter.cpp \
 	utils.cpp \
-	check_erange.cpp \
 )
 OBJS = $(patsubst src/%.cpp, tmp/%.o, $(SRCS))
 

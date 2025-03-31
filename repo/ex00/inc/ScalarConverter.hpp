@@ -7,18 +7,18 @@
 #include <climits>
 #include <cstdlib>
 #include <cmath>
+#include <cfloat>
+#include <iomanip>
 
-typedef enum
+enum
 {
-	S_DEFAULT,
-	S_OK,
-	S_OVERFLOW,
-	S_UNDERFLOW,
-	S_ERANGE,
-	S_INF,
-	S_M_INF,
-	S_NAN
-}	state;
+	_OK,
+	_ERROR,
+	_NON_DISPLAYABLE,
+	_INF,
+	_M_INF,
+	_NAN,
+};
 
 class ScalarConverter
 {
@@ -27,15 +27,22 @@ class ScalarConverter
 		static long		_int;
 		static float	_float;
 		static double	_double;
-		static int		_char_state;
-		static int		_int_state;
-		static int		_float_state;
-		static int		_double_state;
+		static int		_state_char;
+		static int		_state_int;
+		static int		_state_float;
+		static int		_state_double;
 
-		/* check_erange.cpp */
-		static void check_erange(long n);
-		static void	check_erange(double d);
-		static void	check_erange(float f);
+		static void	convert_from_char(char c);
+		static void	convert_from_int(const char* literal);
+		static void	convert_from_float(const char* literal);
+		static void	convert_from_double(const char* literal);
+		static void	convert_from_string(const std::string& literal_trim);
+
+		static void	print_char();
+		static void	print_int();
+		static void	print_float();
+		static void	print_double();
+		static void	print();
 
 							ScalarConverter();
 							ScalarConverter(const ScalarConverter& other);
