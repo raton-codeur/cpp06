@@ -1,5 +1,10 @@
 #include "ScalarConverter.hpp"
 
+char ScalarConverter::_char = 0;
+int ScalarConverter::_int = 0;
+float ScalarConverter::_float = 0;
+double ScalarConverter::_double = 0;
+
 ScalarConverter::ScalarConverter()
 {}
 
@@ -17,119 +22,49 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 ScalarConverter::~ScalarConverter()
 {}
 
-std::string trim(const std::string& s)
-{
-	std::string::size_type i, start, end;
-
-	i = 0;
-	while (i < s.length() && std::isspace(s[i]))
-		i++;
-	start = i;
-	i = s.length() - 1;
-	while (i > start && std::isspace(s[i]))
-		i--;
-	end = i + 1;
-	return s.substr(start, end - start);
-}
-
-bool is_int(const char* s)
-{
-	int i;
-
-	if (s[0] == '\0')
-		return false;
-	if (s[0] == '-' || s[0] == '+')
-		i = 1;
-	else
-		i = 0;
-	if (std::isdigit(s[i]) == false)
-		return false;
-	i++;
-	while (s[i])
-	{
-		if (std::isdigit(s[i]) == false)
-			return false;
-		i++;
-	}
-	return true;
-}
-
-bool is_double(const char* s)
-{
-	int i;
-
-	if (s[0] == '\0')
-		return false;
-	if (s[0] == '-' || s[0] == '+')
-		i = 1;
-	else
-		i = 0;
-	if (std::isdigit(s[i]) == false)
-		return false;
-	i++;
-	while (s[i] && s[i] != '.')
-	{
-		if (std::isdigit(s[i]) == false)
-			return false;
-		i++;
-	}
-	if (s[i] != '.')
-		return false;
-	i++;
-	if (std::isdigit(s[i]) == false)
-		return false;
-	i++;
-	while (s[i])
-	{
-		if (std::isdigit(s[i]) == false)
-			return false;
-		i++;
-	}
-	return true;
-}
-
-bool is_float(const char* s)
-{
-	int i;
-
-	if (s[0] == '\0')
-		return false;
-	if (s[0] == '-' || s[0] == '+')
-		i = 1;
-	else
-		i = 0;
-	if (std::isdigit(s[i]) == false)
-		return false;
-	i++;
-	while (s[i] && s[i] != '.')
-	{
-		if (std::isdigit(s[i]) == false)
-			return false;
-		i++;
-	}
-	if (s[i] != '.')
-		return false;
-	i++;
-	if (std::isdigit(s[i]) == false)
-		return false;
-	i++;
-	while (s[i] && s[i] != 'f')
-	{
-		if (std::isdigit(s[i]) == false)
-			return false;
-		i++;
-	}
-	if (s[i] != 'f')
-		return false;
-	i++;
-	return s[i] == '\0';
-}
-
 void ScalarConverter::convert(const std::string& literal)
 {
-	std::string trimmed_literal = trim(literal);
-	const char* literal_to_check = trimmed_literal.c_str();
-	
+	std::string trimmed = trim(literal);
+	const char* to_check = trimmed.c_str();
 
-	std::cout << is_float(s2) << std::endl;
+	if (trimmed.length() == 1 && std::isprint(trimmed[0]) && !std::isdigit(trimmed[0]))
+	{
+		_char = trimmed[0];
+		std::cout << "char : " << _char << std::endl;
+	}
+	else if (trimmed == "+inf" || trimmed == "-inf" || trimmed == "nan" ||
+		trimmed == "+inff" || trimmed == "-inff" || trimmed == "nanf")
+	{
+		std::cout << "special" << std::endl;
+
+	}
+	else if (is_float(to_check))
+	{
+		errno = 0;
+		_float = std::strtof(to_check, NULL);
+		if (errno == ERANGE)
+			std::cout << "float : overflow ou underflow : " << _float << std::endl;
+		else
+			std::cout << "float : " << _float << std::endl;
+	}
+	else if (is_double(to_check))
+	{
+		errno = 0;
+		_double = std::strtod(to_check, NULL);
+		if (errno == ERANGE)
+			std::cout << "double : overflow ou underflow : " << _double << std::endl;
+		else
+			std::cout << "double : " << _double << std::endl;
+	}
+	else if (is_int(to_check))
+	{
+		errno = 0;
+		_int = std::strtol(to_check, NULL, 10);
+		if (errno == ERANGE || _int > INT_MAX || _int < INT_MIN)
+			std::cout << "int : overflow ou underflow : " << _int << std::endl;
+		else
+			std::cout << "int : " << _int << std::endl;
+	}
+	else
+		std::cout << "other" << std::endl;
 }
