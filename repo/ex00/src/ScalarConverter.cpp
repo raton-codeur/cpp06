@@ -1,7 +1,7 @@
 #include "ScalarConverter.hpp"
 
 char ScalarConverter::_char = 0;
-long ScalarConverter::_int = 0;
+int ScalarConverter::_int = 0;
 float ScalarConverter::_float = 0;
 double ScalarConverter::_double = 0;
 
@@ -27,17 +27,22 @@ void ScalarConverter::convert(const std::string& literal)
 	std::string trimmed = trim(literal);
 	const char* to_check = trimmed.c_str();
 
+	// char
 	if (trimmed.length() == 1 && std::isprint(trimmed[0]) && !std::isdigit(trimmed[0]))
 	{
 		_char = trimmed[0];
 		std::cout << "char : " << _char << std::endl;
 	}
+
+	// special
 	else if (trimmed == "+inf" || trimmed == "-inf" || trimmed == "nan" ||
 		trimmed == "+inff" || trimmed == "-inff" || trimmed == "nanf")
 	{
 		std::cout << "special" << std::endl;
 
 	}
+
+	// float
 	else if (is_float(to_check))
 	{
 		errno = 0;
@@ -47,6 +52,8 @@ void ScalarConverter::convert(const std::string& literal)
 		else
 			std::cout << "float : " << _float << std::endl;
 	}
+
+	// double
 	else if (is_double(to_check))
 	{
 		errno = 0;
@@ -56,6 +63,8 @@ void ScalarConverter::convert(const std::string& literal)
 		else
 			std::cout << "double : " << _double << std::endl;
 	}
+
+	// int
 	else if (is_int(to_check))
 	{
 		errno = 0;
@@ -65,6 +74,7 @@ void ScalarConverter::convert(const std::string& literal)
 		else
 			std::cout << "int : " << _int << std::endl;
 	}
+
 	else
 		std::cout << "other" << std::endl;
 }
