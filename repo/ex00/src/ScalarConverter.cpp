@@ -19,7 +19,7 @@ ScalarConverter::~ScalarConverter()
 
 std::string trim(const std::string& s)
 {
-	int i, start, end;
+	std::string::size_type i, start, end;
 
 	i = 0;
 	while (i < s.length() && std::isspace(s[i]))
@@ -34,6 +34,5 @@ std::string trim(const std::string& s)
 
 void ScalarConverter::convert(const std::string& literal)
 {
-	(void)literal;
-	std::cout << "test" << std::endl;
+	std::cout << "'" << trim(literal)<< "'" << std::endl;
 }
