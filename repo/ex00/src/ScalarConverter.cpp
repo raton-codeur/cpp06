@@ -31,8 +31,6 @@ void ScalarConverter::convert(const std::string& literal)
 	const std::string&	literal_trim = trim(literal);
 	const char*			literal_c_str = literal_trim.c_str();
 
-	errno = 0;
-
 	// char
 	if (literal_trim.length() == 1
 		&& std::isprint(literal_trim[0])
@@ -67,6 +65,7 @@ void ScalarConverter::convert_from_char(char c)
 
 void ScalarConverter::convert_from_int(const char* literal)
 {
+	errno = 0;
 	_int = std::strtol(literal, NULL, 10);
 	if (errno == ERANGE || _int < INT_MIN || _int > INT_MAX)
 	{
@@ -91,6 +90,7 @@ void ScalarConverter::convert_from_int(const char* literal)
 
 void ScalarConverter::convert_from_float(const char* literal)
 {
+	errno = 0;
 	_float = std::strtof(literal, NULL);
 	if (errno == ERANGE)
 	{
@@ -102,16 +102,16 @@ void ScalarConverter::convert_from_float(const char* literal)
 	}
 
 	// char
-	if (_float < CHAR_MIN || _float > CHAR_MAX)
+	_char = static_cast<char>(_float);
+	if (_float <= (CHAR_MIN - 1) || _float >= (CHAR_MAX + 1))
 		_state_char = _ERROR;
-	else if (std::isprint(_float) == false)
+	else if (std::isprint(_char) == false)
 		_state_char = _NON_DISPLAYABLE;
-	else
-		_char = static_cast<char>(_float);
 
 	// int
-	if (_float < INT_MIN || _float > INT_MAX)
-		_state_int = _ERROR;
+	if (_float <= static_cast<double>(INT_MIN) - 1
+		|| _float >= static_cast<double>(INT_MAX) + 1)
+			_state_int = _ERROR;
 	else
 		_int = static_cast<int>(_float);
 
@@ -120,6 +120,7 @@ void ScalarConverter::convert_from_float(const char* literal)
 
 void ScalarConverter::convert_from_double(const char* literal)
 {
+	errno = 0;
 	_double = std::strtod(literal, NULL);
 	if (errno == ERANGE)
 	{
@@ -131,16 +132,16 @@ void ScalarConverter::convert_from_double(const char* literal)
 	}
 
 	// char
-	if (_double < CHAR_MIN || _double > CHAR_MAX)
+	_char = static_cast<char>(_double);
+	if (_double <= (CHAR_MIN - 1) || _double >= (CHAR_MAX + 1))
 		_state_char = _ERROR;
-	else if (std::isprint(_double) == false)
+	else if (std::isprint(_char) == false)
 		_state_char = _NON_DISPLAYABLE;
-	else
-		_char = static_cast<char>(_double);
 
 	// int
-	if (_double < INT_MIN || _double > INT_MAX)
-		_state_int = _ERROR;
+	if (_double <= static_cast<double>(INT_MIN) - 1
+		|| _double >= static_cast<double>(INT_MAX) + 1)
+			_state_int = _ERROR;
 	else
 		_int = static_cast<int>(_double);
 
@@ -157,33 +158,24 @@ void ScalarConverter::convert_from_double(const char* literal)
 
 void ScalarConverter::convert_from_string(const std::string& literal)
 {
+	_state_char = _ERROR;
+	_state_int = _ERROR;
+	_state_float = _ERROR;
+	_state_double = _ERROR;
 	if (literal == "+inf" || literal == "+inff")
 	{
-		_state_char = _ERROR;
-		_state_int = _ERROR;
 		_state_float = _INF;
 		_state_double = _INF;
 	}
 	else if (literal == "-inf" || literal == "-inff")
 	{
-		_state_char = _ERROR;
-		_state_int = _ERROR;
 		_state_float = _M_INF;
 		_state_double = _M_INF;
 	}
 	else if (literal == "nan" || literal == "nanf")
 	{
-		_state_char = _ERROR;
-		_state_int = _ERROR;
 		_state_float = _NAN;
 		_state_double = _NAN;
-	}
-	else
-	{
-		_state_char = _ERROR;
-		_state_int = _ERROR;
-		_state_float = _ERROR;
-		_state_double = _ERROR;
 	}
 }
 

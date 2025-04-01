@@ -2,8 +2,8 @@
 
 int main(int argc, char** argv)
 {
-	std::string s;
 	if (argc == 2)
 		ScalarConverter::convert(argv[1]);
-	return 0;
+	else
+		std::cout << "usage : ./convert <literal>" << std::endl;
 }
