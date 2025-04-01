@@ -187,7 +187,7 @@ void ScalarConverter::print_char()
 	else if (_state_char == _NON_DISPLAYABLE)
 		std::cout << "non displayable";
 	else
-		std::cout << _char;
+		std::cout << '\'' << _char << '\'';
 	std::cout << std::endl;
 }
 
