@@ -1,9 +1,8 @@
-NAME = convert
+NAME = dynamic_cast
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc
 SRCS = $(addprefix src/, \
 	main.cpp \
-	ScalarConverter.cpp \
-	utils.cpp \
+	Base.cpp \
 )
 OBJS = $(patsubst src/%.cpp, tmp/%.o, $(SRCS))
 

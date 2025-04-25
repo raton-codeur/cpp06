@@ -220,3 +220,24 @@ si le result = 0 c'est un underflow, on est trop proche de 0
 si le result = HUGE_VAL(F) ou -HUGE_VAL(F), c'est un overflow, ie +inf ou -inf
 ya d'autre cas rares ou on a juste erange et un result bizarre
 -
+
+
+
+-
+on peut utiliser
+std::cout << std::hex << a << std::dec
+pour afficher un entier a en hexa
+-
+
+
+-
+quand on a une fonction virtuelle (je crois) on a le RTTI = Run-Time Type Information = Information de type à l'exécution
+
+on peut y accéder avec le header <typeinfo> qui fournit la classe std::type_info
+
+la fonction typeid(objet) permet de savoir le type d'un objet à l'exécution
+
+on peut faire : typeid(a) == typeid(b)
+
+on a : std::cout << "Type of a: " << typeid(a).name()
+-

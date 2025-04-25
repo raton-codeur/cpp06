@@ -2,6 +2,7 @@ NAME = serialize
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc
 SRCS = $(addprefix src/, \
 	main.cpp \
+	Serializer.cpp \
 )
 OBJS = $(patsubst src/%.cpp, tmp/%.o, $(SRCS))
 
@@ -22,7 +23,4 @@ fclean : clean
 
 re : fclean all
 
-test : re
-	./$(NAME)
-
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
