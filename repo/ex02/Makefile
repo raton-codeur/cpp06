@@ -1,4 +1,4 @@
-NAME = dynamic_cast
+NAME = identify_type
 FLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc
 SRCS = $(addprefix src/, \
 	main.cpp \

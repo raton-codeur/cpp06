@@ -2,6 +2,8 @@
 #define SERIALIZER_HPP
 #include <iostream>
 
+typedef unsigned long uintptr_t;
+
 struct Data
 {
 	int	a;
